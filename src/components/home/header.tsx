@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react";
 import styled from "@emotion/styled";
-import { Flex, Icon, IconButton, Input, Heading } from "@chakra-ui/react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { Flex, Icon, IconButton, Input, Heading, Spinner } from "@chakra-ui/react";
+import { AiOutlineSearch, AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 
 import { getGitHubUser } from "../../apis/github";
+import { User } from "../../contexts/WatchContext";
+import { GitHubUserList } from "../GitHubUserList";
 
 const Container = styled.div`
     width: 100%auto;
@@ -28,10 +30,14 @@ const Wrapper = styled.div`
 `;
 
 const SearchIcon = () => <Icon as={AiOutlineSearch} />;
+const CaretUpIcon = () => <Icon as={AiFillCaretUp} />;
+const CaretDownIcon = () => <Icon as={AiFillCaretDown} />;
 
 export const Header = () => {
     const [searchValue, setSearchValue] = useState("");
     const [isSearching, setSearching] = useState(false);
+    const [searchResult, setSearchResult] = useState<User[]>([]);
+    const [isResultShowing, setResultShowing] = useState(true);
 
     const handleUserIdInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -44,8 +50,15 @@ export const Header = () => {
         try {
             setSearching(true);
             const users = await getGitHubUser(searchValue)
+            const ghUsers: User[] = users.map((u) => {
+                return {
+                    name: u.login,
+                    profileImageUrl: u.avatar_url,
+                }
+            }).slice(0, 15);
+            setSearchResult(ghUsers);
         } catch (err) {
-
+            console.log(err);
         } finally {
             setSearching(false);
         }
@@ -56,6 +69,9 @@ export const Header = () => {
         }
         handleSearchClick();
     }, [handleSearchClick]);
+    const toggleResultShowing = useCallback(() => {
+        setResultShowing(!isResultShowing);
+    }, [isResultShowing]);
 
     return (
         <Container>
@@ -73,7 +89,16 @@ export const Header = () => {
                         icon={<SearchIcon />}
                         onClick={handleSearchClick} />
                 </Flex>
-
+                {isSearching ? <Spinner mt="16px" /> : null}
+                <GitHubUserList users={searchResult} show={!isSearching && isResultShowing && !!searchResult.length} />
+                {searchResult.length ? (
+                    <IconButton
+                        colorScheme="transparent"
+                        mb="-40px" size="xs" variant="ghost"
+                        icon={isResultShowing ? <CaretUpIcon /> : <CaretDownIcon />}
+                        aria-label="show / hide"
+                        onClick={toggleResultShowing} />
+                ) : null}
             </Wrapper>
         </Container>
     );
