@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GITHUB_API = "https://api.github.com/search/users";
+const GITHUB_API = "https://api.github.com";
 
 interface GitHubResponse {
     total_count: number;
