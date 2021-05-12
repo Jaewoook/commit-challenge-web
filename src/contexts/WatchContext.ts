@@ -1,7 +1,7 @@
 import React from "react";
 
 export type User = {
-    email: string;
+    id?: number;
     name: string;
     profileImageUrl?: string;
 };

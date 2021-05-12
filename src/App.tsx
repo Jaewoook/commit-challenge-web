@@ -8,17 +8,17 @@ import { User, WatchContext } from "./contexts/WatchContext";
 import { theme } from "./theme";
 
 const mockUsers: User[] = [{
-    email: "ajw4586@gmail.com",
+    id: 1,
     name: "jaewoook",
 }, {
-    email: "octocat@github.com",
+    id: 2,
     name: "octocat",
 }];
 
 const App = () => {
     const [users, setUsers] = useState<User[]>(mockUsers);
     const addUser = useCallback((user: User) => {
-        if (users.map((u) => u.email).includes(user.email)) {
+        if (users.map((u) => u.id).includes(user.id)) {
             return;
         }
         setUsers([...users, user]);
