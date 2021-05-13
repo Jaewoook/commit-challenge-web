@@ -28,7 +28,12 @@ export const Content = () => {
     const watch = useContext(WatchContext);
     return (
         <Wrapper>
-            <>{watch?.users?.map((u) => <ContributionGraph key={u.id} userId={u.name} m="16px 4px" />)}</>
+            <>{watch?.users?.map((u) => (
+                <ContributionGraph key={u.id}
+                    m="16px 4px"
+                    userId={u.name}
+                    profileImageUrl={u.profileImageUrl} />
+            ))}</>
         </Wrapper>
     )
 };

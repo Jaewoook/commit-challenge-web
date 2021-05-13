@@ -34,15 +34,20 @@ const Loading = () => (
 );
 
 interface Props extends SpaceProps {
-    userId?: string;
+    userId: string;
+    profileImageUrl: string;
 }
 
-export const ContributionGraph: React.FC<Props> = ({ userId, ...rest }) => {
+export const ContributionGraph: React.FC<Props> = ({ userId, profileImageUrl, ...rest }) => {
     return (
         <Wrapper {...rest}>
             <Flex mt="12px" alignItems="center">
-                <Image borderRadius="full" boxSize="45px" fallbackSrc="https://avatars.githubusercontent.com/u/583231?v=4" />
-                <Text ml="12px" fontSize="2xl">@{userId?.toUpperCase()}</Text>
+                <Image
+                    borderRadius="full"
+                    boxSize="45px"
+                    src={profileImageUrl}
+                    fallbackSrc="https://avatars.githubusercontent.com/u/583231?v=4" />
+                <Text ml="12px" fontSize="2xl">@{userId.toUpperCase()}</Text>
             </Flex>
             <Image width="100%" src={`https://ghchart.rshah.org//${userId}`} alt="contribution graph" fallback={<Loading />} />
         </Wrapper>
