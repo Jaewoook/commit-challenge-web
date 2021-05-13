@@ -1,34 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { Layout } from "./components";
 import * as pages from "./pages";
 import { User, WatchContext } from "./contexts/WatchContext";
+import { getWatchUser } from "./apis/watch";
 import { theme } from "./theme";
 
-const mockUsers: User[] = [{
-    id: 1,
-    name: "jaewoook",
-    profileImageUrl: "",
-}, {
-    id: 2,
-    name: "octocat",
-    profileImageUrl: "",
-}];
-
 const App = () => {
-    const [users, setUsers] = useState<User[]>(mockUsers);
+    const [users, setUsers] = useState<User[]>([]);
     const addUser = useCallback((user: User) => {
         if (users.map((u) => u.id).includes(user.id)) {
             return;
         }
         setUsers([...users, user]);
     }, [users]);
+    const loadUsers = useCallback(async () => {
+        const users = await getWatchUser();
+        setUsers(users);
+    }, []);
     const watchContext = {
         users,
         addUser,
+        loadUsers,
     };
+
+    useEffect(() => {
+        loadUsers();
+    }, []);
 
     return (
         <ChakraProvider theme={theme}>
