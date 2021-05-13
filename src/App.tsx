@@ -28,7 +28,8 @@ const App = () => {
 
     useEffect(() => {
         loadUsers();
-    });
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <ChakraProvider theme={theme}>
