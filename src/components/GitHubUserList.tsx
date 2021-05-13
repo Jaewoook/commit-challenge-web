@@ -5,8 +5,9 @@ import { display, DisplayProps } from "styled-system";
 import { AiFillCheckCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 import { User, WatchContext } from "../contexts/WatchContext";
+import { createWatchUser } from "../apis/watch";
 
-const CardWrapper = styled(Flex)<{ exist: boolean; }>`
+const CardWrapper = styled(Flex)`
     min-width: 33%;
     align-items: center;
     cursor: ${({ exist }) => exist ? "not-allowed" : "pointer"};
@@ -25,13 +26,19 @@ const CardWrapper = styled(Flex)<{ exist: boolean; }>`
 
 const GitHubUserCard: React.FC<User> = (props) => {
     const watch = useContext(WatchContext);
-    const { id, name, profileImageUrl } = props;
+    const { uid, name, profileImageUrl } = props;
     const exist = useMemo<boolean>(() => {
-        return watch.users?.map((u) => u.id).includes(id) ?? false;
-    }, [id, watch.users]);
+        return watch.users.map((u) => u.uid).includes(uid);
+    }, [uid, watch.users]);
 
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback(async () => {
         watch.addUser(props);
+        try {
+            await createWatchUser(props);
+            watch.loadUsers();
+        } catch (err) {
+            console.log(err);
+        }
     }, [props, watch]);
 
     return (
@@ -65,7 +72,7 @@ export const GitHubUserList: React.FC<Props> = ({ users, show }) => {
     return (
         <Wrapper display={show ? "flex" : "none"}>
             {users.map((u, i) => (
-                <GitHubUserCard key={i} name={u.name} id={u.id} profileImageUrl={u.profileImageUrl} />
+                <GitHubUserCard key={i} name={u.name} uid={u.uid} profileImageUrl={u.profileImageUrl} />
             ))}
         </Wrapper>
     );
