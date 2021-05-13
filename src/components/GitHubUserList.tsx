@@ -2,9 +2,26 @@ import React, { useCallback, useContext, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Flex, Image, Icon, Text } from "@chakra-ui/react";
 import { display, DisplayProps } from "styled-system";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { AiFillCheckCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 import { User, WatchContext } from "../contexts/WatchContext";
+
+const CardWrapper = styled(Flex)`
+    min-width: 33%;
+    align-items: center;
+    cursor: pointer;
+    > #add_icon {
+        display: none;
+    }
+
+    :hover {
+        background-color: #eee;
+
+        > #add_icon {
+            display: inline-block;
+        }
+    }
+`;
 
 const GitHubUserCard: React.FC<User> = (props) => {
     const watch = useContext(WatchContext);
@@ -19,11 +36,11 @@ const GitHubUserCard: React.FC<User> = (props) => {
     }, [props, watch]);
 
     return (
-        <Flex minWidth="33%" alignItems="center" px="12px" py="8px" cursor="pointer" _hover={{ backgroundColor: "#eee" }} onClick={handleClick}>
+        <CardWrapper px="12px" py="8px" onClick={handleClick}>
             <Image src={profileImageUrl} boxSize="35px" borderRadius="full" />
             <Text ml="12px" flex="1" fontSize="14px" fontFamily="Teko" color="#000">@{name.toUpperCase()}</Text>
-            {exist ? <Icon color="#4aa96c" as={AiFillCheckCircle} /> : null}
-        </Flex>
+            {exist ? <Icon color="#4aa96c" as={AiFillCheckCircle} /> : <Icon id="add_icon" color="#aaa" as={AiOutlinePlusCircle} />}
+        </CardWrapper>
     );
 };
 
