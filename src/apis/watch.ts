@@ -6,7 +6,7 @@ const JAEWOOK_API = "https://api.jaewook.me/commit-challenge";
 export const getWatchUser = async (): Promise<User[]> => {
     try {
         const res = await axios.get(`${JAEWOOK_API}/user`);
-        if (res.data.status != "OK") {
+        if (res.data.status !== "OK") {
             throw new Error(res.data.error);
         } else {
             return res.data.data;

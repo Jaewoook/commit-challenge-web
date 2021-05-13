@@ -29,7 +29,7 @@ export const Content = () => {
     return (
         <Wrapper>
             <>{watch?.users.map((u) => (
-                <ContributionGraph key={u.id}
+                <ContributionGraph key={u.uid}
                     m="16px 4px"
                     userId={u.name}
                     profileImageUrl={u.profileImageUrl} />

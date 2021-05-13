@@ -52,7 +52,7 @@ export const Header = () => {
             const users = await getGitHubUser(searchValue)
             const ghUsers: User[] = users.map((u) => {
                 return {
-                    id: u.id,
+                    uid: u.id,
                     name: u.login,
                     profileImageUrl: u.avatar_url,
                 }

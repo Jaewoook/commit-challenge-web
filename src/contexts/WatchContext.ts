@@ -1,7 +1,8 @@
 import React from "react";
 
 export type User = {
-    id: number;
+    id?: string;
+    uid: number;
     name: string;
     profileImageUrl: string;
 };
