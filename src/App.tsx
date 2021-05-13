@@ -10,9 +10,11 @@ import { theme } from "./theme";
 const mockUsers: User[] = [{
     id: 1,
     name: "jaewoook",
+    profileImageUrl: "",
 }, {
     id: 2,
     name: "octocat",
+    profileImageUrl: "",
 }];
 
 const App = () => {
