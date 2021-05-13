@@ -6,10 +6,10 @@ import { AiFillCheckCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 import { User, WatchContext } from "../contexts/WatchContext";
 
-const CardWrapper = styled(Flex)`
+const CardWrapper = styled(Flex)<{ exist: boolean; }>`
     min-width: 33%;
     align-items: center;
-    cursor: pointer;
+    cursor: ${({ exist }) => exist ? "not-allowed" : "pointer"};
     > #add_icon {
         display: none;
     }
@@ -26,9 +26,8 @@ const CardWrapper = styled(Flex)`
 const GitHubUserCard: React.FC<User> = (props) => {
     const watch = useContext(WatchContext);
     const { id, name, profileImageUrl } = props;
-    const exist = useMemo(() => {
-        console.log(watch.users?.map((u) => u.id));
-        return watch.users?.map((u) => u.id).includes(id);
+    const exist = useMemo<boolean>(() => {
+        return watch.users?.map((u) => u.id).includes(id) ?? false;
     }, [id, watch.users]);
 
     const handleClick = useCallback(() => {
@@ -36,7 +35,7 @@ const GitHubUserCard: React.FC<User> = (props) => {
     }, [props, watch]);
 
     return (
-        <CardWrapper px="12px" py="8px" onClick={handleClick}>
+        <CardWrapper px="12px" py="8px" exist={exist} onClick={handleClick}>
             <Image src={profileImageUrl} boxSize="35px" borderRadius="full" />
             <Text ml="12px" flex="1" fontSize="14px" fontFamily="Teko" color="#000">@{name.toUpperCase()}</Text>
             {exist ? <Icon color="#4aa96c" as={AiFillCheckCircle} /> : <Icon id="add_icon" color="#aaa" as={AiOutlinePlusCircle} />}
