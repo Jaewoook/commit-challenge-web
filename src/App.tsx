@@ -28,7 +28,7 @@ const App = () => {
 
     useEffect(() => {
         loadUsers();
-    }, []);
+    });
 
     return (
         <ChakraProvider theme={theme}>
