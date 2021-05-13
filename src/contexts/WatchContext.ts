@@ -7,12 +7,13 @@ export type User = {
 };
 
 interface IWatchContext {
-    users?: User[];
+    users: User[];
     addUser: (user: User) => void;
-    removeUser?: (index: number) => void;
+    loadUsers: () => void;
 }
 
 export const WatchContext = React.createContext<IWatchContext>({
     users: [],
     addUser: () => {},
+    loadUsers: () => {},
 });
