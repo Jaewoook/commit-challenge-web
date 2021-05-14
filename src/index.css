@@ -3,10 +3,13 @@
 
 body {
   margin: 0;
+  min-width: 250px;
+  width: 100%;
   font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #dddddd;
+  overflow-x: scroll;
 }
 
 code {

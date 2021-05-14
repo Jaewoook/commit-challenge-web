@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { space, SpaceProps } from "styled-system";
-import { Center, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { Center, Flex, Image, Spinner, Text, FlexProps } from "@chakra-ui/react";
 
-const Wrapper = styled.div<SpaceProps>`
-    ${space}
+const Wrapper = styled(Flex)`
     min-width: 300px;
-    max-width: 45%;
     display: flex;
     flex-direction: column;
     padding: 8px 16px;
@@ -33,7 +30,7 @@ const Loading = () => (
     </Center>
 );
 
-interface Props extends SpaceProps {
+interface Props extends FlexProps {
     userId: string;
     profileImageUrl: string;
 }

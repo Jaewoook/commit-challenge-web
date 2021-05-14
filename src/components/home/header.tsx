@@ -12,7 +12,7 @@ const Container = styled.div`
     background-color: #30475e;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(Flex)`
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
@@ -20,7 +20,8 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     flex-direction: column;
-    padding: 48px 0;
+    padding-top: 48px;
+    padding-bottom: 48px;
     color: white;
 
     input {
@@ -76,7 +77,7 @@ export const Header = () => {
 
     return (
         <Container>
-            <Wrapper>
+            <Wrapper px={["24px", "24px", 0]}>
                 <Heading>Commit Challenge</Heading>
                 <Flex mt="48px" width="100%" flexDirection="row">
                     <Input
