@@ -10,10 +10,6 @@ const Wrapper = styled(Flex)`
     background-color: #fff;
     border-radius: 2px;
 
-    > img {
-        margin-top: 8px;
-    }
-
     > div > p {
         font-weight: 500;
         font-family: 'Teko', sans-serif;
@@ -46,7 +42,12 @@ export const ContributionGraph: React.FC<Props> = ({ userId, profileImageUrl, ..
                     fallbackSrc="https://avatars.githubusercontent.com/u/583231?v=4" />
                 <Text ml="12px" fontSize="2xl">@{userId.toUpperCase()}</Text>
             </Flex>
-            <Image width="100%" src={`https://ghchart.rshah.org//${userId}`} alt="contribution graph" fallback={<Loading />} />
+            <Image
+                htmlWidth="100%" mt="20px"
+                minHeight="35px"
+                src={`https://ghchart.rshah.org//${userId}`}
+                alt="contribution graph"
+                fallback={<Loading />} />
         </Wrapper>
     );
 };
