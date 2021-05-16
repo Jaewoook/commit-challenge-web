@@ -32,6 +32,10 @@ const GitHubUserCard: React.FC<User> = (props) => {
     }, [uid, watch.users]);
 
     const handleClick = useCallback(async () => {
+        if (exist) {
+            return;
+        }
+
         watch.addUser(props);
         try {
             await createWatchUser(props);
