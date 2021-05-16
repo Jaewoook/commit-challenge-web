@@ -70,7 +70,7 @@ export const ContributionGraph: React.FC<Props> = ({ userId, profileImageUrl, ..
             <Image
                 htmlWidth="100%" mt="20px"
                 minHeight="35px"
-                src={`https://ghchart.rshah.org//${userId}`}
+                src={`https://ghchart.rshah.org/${userId}`}
                 alt="contribution graph"
                 fallback={<Loading />} />
         </Wrapper>
