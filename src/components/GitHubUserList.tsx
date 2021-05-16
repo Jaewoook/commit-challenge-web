@@ -43,7 +43,7 @@ const GitHubUserCard: React.FC<User> = (props) => {
         } catch (err) {
             console.log(err);
         }
-    }, [props, watch]);
+    }, [props, watch, exist]);
 
     return (
         <CardWrapper px="12px" py="8px" exist={exist} onClick={handleClick}>
